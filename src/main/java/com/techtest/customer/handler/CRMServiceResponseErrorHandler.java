@@ -1,9 +1,7 @@
 package com.techtest.customer.handler;
 
 import com.techtest.customer.cons.Constants;
-import com.techtest.customer.exp.CustomerAlreadyExistsException;
-import com.techtest.customer.exp.CustomerCreationFailedException;
-import com.techtest.customer.exp.CustomerServiceException;
+import com.techtest.customer.exp.*;
 import com.techtest.customer.gen.Error;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.ClientHttpResponse;
@@ -47,6 +45,14 @@ public class CRMServiceResponseErrorHandler implements ResponseErrorHandler {
                 throw new CustomerAlreadyExistsException();
             } else if (Constants.CUSTOMER_CREATION_FAILED.equals(error.getCode())) {
                 throw new CustomerCreationFailedException();
+            } else if (Constants.CUSTOMER_CAN_NOT_BE_FOUND.equals(error.getCode())) {
+                throw new CustomerCanNotBeFoundException();
+            } else if (Constants.CUSTOMER_UPDATE_FAILED.equals(error.getCode())) {
+                throw new CustomerUpdateFailedException();
+            } else if (Constants.CUSTOMER_DELETE_FAILED.equals(error.getCode())) {
+                throw new CustomerDeleteFailed();
+            } else {
+                throw new CustomerServiceException("Unknown error occurred while invoking the CRM endpoint.");
             }
         } else {
             throw new CustomerServiceException("Unknown error occurred while invoking the CRM endpoint.");
