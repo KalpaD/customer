@@ -1,0 +1,153 @@
+swagger: "2.0"
+info:
+  description: "This is the API definition of the customer profile service"
+  version: "1.0.0"
+  title: "Customer Profile API"
+  contact:
+    email: "apiteam@techtest.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "api.techtest.com"
+tags:
+- name: "Customer Profile"
+  description: "Provide RESTFul APi to manage the customer profile"
+schemes:
+- "https"
+paths:
+  /customers:
+     post:
+        tags:
+        - "Create customer profile"
+        summary: "Create customer in the CRM system"
+        description: "This endpoint provision a user in the system and the customer will be able to access the full
+                      set of features from the product APIs"
+        operationId: "createCustomer"
+        consumes:
+        - "application/json"
+        produces:
+        - ""
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Created customer profile object"
+          required: true
+          schema:
+            $ref: "#/definitions/Customer"
+        responses:
+          401:
+            description: "Unauthorized Access"
+          403:
+            description: "Access forbidden"
+        security:
+        - api_key: []
+
+     put:
+        tags:
+        - "Update existing customer profile"
+        summary: "Update customer profile with given customer profile data"
+        description: "This endpoint updates the customer profile by the given profile information"
+        operationId: "updateCustomer"
+        consumes:
+          - ""
+        produces:
+          - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Created customer profile object"
+          required: true
+          schema:
+            $ref: "#/definitions/Customer"
+        responses:
+            401:
+              description: "Unauthorized Access"
+            403:
+              description: "Access forbidden"
+        security:
+          - api_key: []
+
+  /customers/{id}:
+      get:
+        tags:
+          - "Fetch customer profile"
+        summary: "Fetch customer profile for given id."
+        description: "This endpoint retrieve a customer profile from the system."
+        operationId: "getCustomer"
+        consumes:
+        - ""
+        produces:
+        - "application/json"
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "The customer profile id to be fetched."
+          required: true
+          type: "string"
+        responses:
+          200:
+            description: "Fetched customer profile object"
+            schema:
+              $ref: "#/definitions/Customer"
+          401:
+            description: "Unauthorized Access"
+          403:
+            description: "Access forbidden"
+        security:
+        - api_key: []
+
+      delete:
+        tags:
+          - "Delete customer profile."
+        summary: "Delete customer profile for a given id"
+        description: "This endpoint retrieve delete a customer profile by given id"
+        operationId: "deleteCustomer"
+        consumes:
+        - ""
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "The customer profile id to be deleted."
+          required: true
+          type: "string"
+        responses:
+          200:
+            description: "Fetched customer profile object"
+            schema:
+              $ref: "#/definitions/Customer"
+          401:
+            description: "Unauthorized Access"
+          403:
+            description: "Access forbidden"
+        security:
+          - api_key: []
+
+definitions:
+  Customer:
+    type: "object"
+    properties:
+      customerId:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      dateOfBirth:
+        type: "string"
+      addressList:
+        type: "array"
+        items:
+          $ref: "#/definitions/Customer"
+  Address:
+    type: "object"
+    properties:
+      addressType:
+        type: "string"
+      address:
+        type: "string"
+
+securityDefinitions:
+    api_key:
+      type: "apiKey"
+      name: "api_key"
+      in: "header"

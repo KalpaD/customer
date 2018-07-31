@@ -1,0 +1,41 @@
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:element name="CustomerProfile">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="CustomerIdentificationNumber"/>
+                <xs:element type="xs:string" name="FirstName"/>
+                <xs:element type="xs:string" name="LastName"/>
+                <xs:element type="xs:string" name="DateOfBirth"/>
+                <xs:element name="Addresses">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Address" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="AddressType"/>
+                                        <xs:element type="xs:string" name="Address"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Id" type="xs:string"/>
+    <xs:complexType name="Result">
+        <xs:sequence>
+            <xs:element name="Status" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Error">
+        <xs:sequence>
+            <xs:element name="Code" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+
+
