@@ -1,0 +1,16 @@
+management:
+  endpoints:
+    web:
+      base-path: /manage
+
+endpoint:
+  crm_create_customer_endpoint:         http://localhost:8089/createCustomerProfile
+  crm_delete_customer_endpoint:         http://localhost:8089/deleteCustomerProfile
+  crm_read_customer_endpoint:           http://localhost:8089/readCustomerProfile
+  crm_update_customer_endpoint:         http://localhost:8089/updateCustomerProfile
+
+client:
+  conn_max_pool_size:                   200
+  conn_max_per_route:                   20
+  connect_timeout:                      10
+  read_timeout:                         10

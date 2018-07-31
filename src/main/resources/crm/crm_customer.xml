@@ -1,0 +1,16 @@
+<CustomerProfile>
+    <CustomerIdentificationNumber></CustomerIdentificationNumber>
+    <FirstName></FirstName>
+    <LastName></LastName>
+    <DateOfBirth></DateOfBirth>
+    <Addresses>
+        <Address>
+            <AddressType></AddressType>
+            <Address></Address>
+        </Address>
+        <Address>
+            <AddressType></AddressType>
+            <Address></Address>
+        </Address>
+    </Addresses>
+</CustomerProfile>
