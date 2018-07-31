@@ -1,4 +1,4 @@
-# customer profile spring-boot- based API
+# Customer Profile API (spring-boot)
 
 This project is an application for customer profile management API using Java, Spring Boot.
 
@@ -19,16 +19,15 @@ cd customer
 
 ### Configuration
 In order to get your chatbot working you have to provide the following:
-```
-copy the CRM-Legecy-Backend-soapui-project.xml file to convenient location and open it using SOAPUI
 
-Open the mock service window by double clicking on CRMCustomerProfileMock
+1. Copy the CRM-Legecy-Backend-soapui-project.xml file to convenient location and open it using SOAPUI
 
-And run it.
+2. Open the mock service window by double clicking on CRMCustomerProfileMock
 
-The default mock port is 8089, Please change that if you have any port conflict.
+3. And run it.
 
-```
+4. The default mock port is 8089, Please change that if you have any port conflict.
+
 The configuration is located in `src/resources/application.yml`.
 It contains the endpoint configurations which use by the API to communicate to these mock.
 
