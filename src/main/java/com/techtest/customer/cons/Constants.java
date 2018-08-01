@@ -1,6 +1,11 @@
 package com.techtest.customer.cons;
 
+/**
+ * Hold application specific string constants.
+ */
 public interface Constants {
+
+    String CRM_RESPONSE_STATUS_SUCCESS  =      "Successful";
 
     String CUSTOMER_EXISTS              =      "CRM001";
     String CUSTOMER_CREATION_FAILED     =      "CRM002";

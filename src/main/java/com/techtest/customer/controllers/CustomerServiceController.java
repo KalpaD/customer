@@ -53,7 +53,7 @@ public class CustomerServiceController {
      */
     @GetMapping("/customers/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id)
-            throws CustomerCanNotBeFoundException, InvalidProfileIdException {
+            throws CustomerCanNotBeFoundException, InvalidProfileIdException, CustomerReadFailedException {
 
         if (StringUtils.isEmpty(id) || StringUtils.isBlank(id)) {
             throw new InvalidProfileIdException();
@@ -85,13 +85,17 @@ public class CustomerServiceController {
      */
     @DeleteMapping("/customers/{id}")
     public ResponseEntity deleteCustomer(@PathVariable String id)
-            throws CustomerCanNotBeFoundException, CustomerDeleteFailed {
+            throws CustomerCanNotBeFoundException, CustomerDeleteFailedException {
 
         customerService.deleteCustomerById(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-
+    /**
+     * Convert CustomerAlreadyExistsException to HTTPStatus 409 Conflict.
+     * @param ex    CustomerAlreadyExistsException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
     @ExceptionHandler(CustomerAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleCustomerAlreadyExistsException(CustomerAlreadyExistsException ex) {
         ErrorResponse errorResponse = new ErrorResponse("CustomerRecordExists",
@@ -99,6 +103,11 @@ public class CustomerServiceController {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    /**
+     * Convert CustomerCreationFailedException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerCreationFailedException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
     @ExceptionHandler(CustomerCreationFailedException.class)
     public ResponseEntity<ErrorResponse> handleCustomerCreationFailedException(CustomerCreationFailedException ex) {
         ErrorResponse errorResponse = new ErrorResponse("CustomerRecordCreationFailed",
@@ -106,6 +115,11 @@ public class CustomerServiceController {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Convert InvalidProfileIdException to HTTPStatus 400 Bad Request.
+     * @param ex    InvalidProfileIdException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
     @ExceptionHandler(InvalidProfileIdException.class)
     public ResponseEntity<ErrorResponse> handleInvalidProfileIdException(InvalidProfileIdException ex) {
         ErrorResponse errorResponse = new ErrorResponse("InvalidProfileIdProvided",
@@ -113,6 +127,11 @@ public class CustomerServiceController {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Convert CustomerCanNotBeFoundException to HTTPStatus 404 Not Found.
+     * @param ex    CustomerCanNotBeFoundException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
     @ExceptionHandler(CustomerCanNotBeFoundException.class)
     public ResponseEntity<ErrorResponse> handleCustomerCanNotBeFoundException(CustomerCanNotBeFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse("CustomerCanNotBeFound",
@@ -120,6 +139,11 @@ public class CustomerServiceController {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Convert CustomerUpdateFailedException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerUpdateFailedException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
     @ExceptionHandler(CustomerUpdateFailedException.class)
     public ResponseEntity<ErrorResponse> handleCustomerUpdateFailedException(CustomerUpdateFailedException ex) {
         ErrorResponse errorResponse = new ErrorResponse("CustomerUpdateFailed",
@@ -127,13 +151,23 @@ public class CustomerServiceController {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(CustomerDeleteFailed.class)
-    public ResponseEntity<ErrorResponse> handleCustomerDeleteFailed(CustomerDeleteFailed ex) {
-        ErrorResponse errorResponse = new ErrorResponse("CustomerDeleteFailed",
+    /**
+     * Convert CustomerDeleteFailedException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerDeleteFailedException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
+    @ExceptionHandler(CustomerDeleteFailedException.class)
+    public ResponseEntity<ErrorResponse> handleCustomerDeleteFailed(CustomerDeleteFailedException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("CustomerDeleteFailedException",
                 "Customer profile delete failed due to system error");
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Convert CustomerServiceException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerServiceException
+     * @return      ResponseEntity with error errorMessage.
+     */
     @ExceptionHandler(CustomerServiceException.class)
     public ResponseEntity<ErrorResponse> handleCustomerServiceException(CustomerServiceException ex) {
         ErrorResponse errorResponse = new ErrorResponse("SystemError",

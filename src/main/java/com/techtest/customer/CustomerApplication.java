@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Entry point of the application.
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.techtest.customer.*")
 public class CustomerApplication {
 
 	public static void main(String[] args) {

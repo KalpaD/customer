@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "endpoint")
 public class EndpointConfig {
-
+    
     private String crmCreateCustomerEndpoint;
     private String crmDeleteCustomerEndpoint;
     private String crmReadCustomerEndpoint;

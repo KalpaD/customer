@@ -14,4 +14,8 @@ public class CustomerServiceException extends IOException {
     public CustomerServiceException(String message) {
         super(message);
     }
+
+    public CustomerServiceException(Throwable cause) {
+        super(cause);
+    }
 }
