@@ -12,4 +12,8 @@ public class CustomerCreationFailedException extends  CustomerServiceException {
     public CustomerCreationFailedException(String message) {
         super(message);
     }
+
+    public CustomerCreationFailedException(Throwable cause) {
+        super(cause);
+    }
 }

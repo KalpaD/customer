@@ -1,12 +1,11 @@
 package com.techtest.customer.controllers;
 
-import com.techtest.customer.exp.CustomerAlreadyExistsException;
-import com.techtest.customer.exp.CustomerCanNotBeFoundException;
-import com.techtest.customer.exp.CustomerCreationFailedException;
+import com.techtest.customer.exp.*;
 import com.techtest.customer.model.Customer;
 import com.techtest.customer.model.ErrorResponse;
 import com.techtest.customer.services.CustomerService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +52,13 @@ public class CustomerServiceController {
      * @throws CustomerCanNotBeFoundException If customer profile can not be found for the given profile id.
      */
     @GetMapping("/customers/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable String id) throws CustomerCanNotBeFoundException {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable String id)
+            throws CustomerCanNotBeFoundException, InvalidProfileIdException, CustomerReadFailedException {
+
+        if (StringUtils.isEmpty(id) || StringUtils.isBlank(id)) {
+            throw new InvalidProfileIdException();
+        }
+
         Customer customer = customerService.getCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
@@ -65,7 +70,9 @@ public class CustomerServiceController {
      * @throws CustomerCanNotBeFoundException   If customer profile can not be found for the given profile id.
      */
     @PutMapping("/customers")
-    public ResponseEntity updateCustomer(@RequestBody Customer customer) throws CustomerCanNotBeFoundException {
+    public ResponseEntity updateCustomer(@RequestBody Customer customer)
+            throws CustomerCanNotBeFoundException, CustomerUpdateFailedException {
+
         customerService.updateCustomer(customer);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -77,12 +84,18 @@ public class CustomerServiceController {
      * @throws CustomerCanNotBeFoundException    If customer profile can not be found for the given profile id.
      */
     @DeleteMapping("/customers/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable String id) throws CustomerCanNotBeFoundException {
+    public ResponseEntity deleteCustomer(@PathVariable String id)
+            throws CustomerCanNotBeFoundException, CustomerDeleteFailedException {
+
         customerService.deleteCustomerById(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-
+    /**
+     * Convert CustomerAlreadyExistsException to HTTPStatus 409 Conflict.
+     * @param ex    CustomerAlreadyExistsException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
     @ExceptionHandler(CustomerAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleCustomerAlreadyExistsException(CustomerAlreadyExistsException ex) {
         ErrorResponse errorResponse = new ErrorResponse("CustomerRecordExists",
@@ -90,6 +103,11 @@ public class CustomerServiceController {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    /**
+     * Convert CustomerCreationFailedException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerCreationFailedException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
     @ExceptionHandler(CustomerCreationFailedException.class)
     public ResponseEntity<ErrorResponse> handleCustomerCreationFailedException(CustomerCreationFailedException ex) {
         ErrorResponse errorResponse = new ErrorResponse("CustomerRecordCreationFailed",
@@ -97,6 +115,64 @@ public class CustomerServiceController {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Convert InvalidProfileIdException to HTTPStatus 400 Bad Request.
+     * @param ex    InvalidProfileIdException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
+    @ExceptionHandler(InvalidProfileIdException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidProfileIdException(InvalidProfileIdException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("InvalidProfileIdProvided",
+                "Customer profile id can not be empty or null");
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 
+    /**
+     * Convert CustomerCanNotBeFoundException to HTTPStatus 404 Not Found.
+     * @param ex    CustomerCanNotBeFoundException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
+    @ExceptionHandler(CustomerCanNotBeFoundException.class)
+    public ResponseEntity<ErrorResponse> handleCustomerCanNotBeFoundException(CustomerCanNotBeFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("CustomerCanNotBeFound",
+                "Customer profile could not be found for the given profile id.");
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Convert CustomerUpdateFailedException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerUpdateFailedException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
+    @ExceptionHandler(CustomerUpdateFailedException.class)
+    public ResponseEntity<ErrorResponse> handleCustomerUpdateFailedException(CustomerUpdateFailedException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("CustomerUpdateFailed",
+                "Customer profile update failed due to system error");
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * Convert CustomerDeleteFailedException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerDeleteFailedException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
+    @ExceptionHandler(CustomerDeleteFailedException.class)
+    public ResponseEntity<ErrorResponse> handleCustomerDeleteFailed(CustomerDeleteFailedException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("CustomerDeleteFailedException",
+                "Customer profile delete failed due to system error");
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * Convert CustomerServiceException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerServiceException
+     * @return      ResponseEntity with error errorMessage.
+     */
+    @ExceptionHandler(CustomerServiceException.class)
+    public ResponseEntity<ErrorResponse> handleCustomerServiceException(CustomerServiceException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("SystemError",
+                "Unknown system error.");
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }

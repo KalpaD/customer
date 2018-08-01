@@ -1,0 +1,12 @@
+<CustomerProfile>
+    <CustomerIdentificationNumber>001</CustomerIdentificationNumber>
+    <FirstName>Neo</FirstName>
+    <LastName>Anderson</LastName>
+    <DateOfBirth>2001-01-01</DateOfBirth>
+    <Addresses>
+        <Address>
+            <AddressType>HOME</AddressType>
+            <Address>158, Pitt Street, Sydney, Australia</Address>
+        </Address>
+    </Addresses>
+</CustomerProfile>

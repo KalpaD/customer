@@ -1,9 +1,7 @@
 package com.techtest.customer.handler;
 
 import com.techtest.customer.cons.Constants;
-import com.techtest.customer.exp.CustomerAlreadyExistsException;
-import com.techtest.customer.exp.CustomerCreationFailedException;
-import com.techtest.customer.exp.CustomerServiceException;
+import com.techtest.customer.exp.*;
 import com.techtest.customer.gen.Error;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.ClientHttpResponse;
@@ -33,11 +31,11 @@ public class CRMServiceResponseErrorHandler implements ResponseErrorHandler {
      * Given the behaviour of the CRM POX services we will never encounter a clinet series errors
      * It will always be 200 series or 500 series.
      * @param clientHttpResponse    The response from the REST call.
-     * @throws IOException          In case of error while reading the message or handling the error.
+     * @throws IOException          In case of error while reading the errorMessage or handling the error.
      */
     @Override
     public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
-        // read the message and determine the error.
+        // read the errorMessage and determine the error.
         Error error = readXMLMessage(clientHttpResponse.getBody());
 
         if (error != null) {
@@ -47,17 +45,25 @@ public class CRMServiceResponseErrorHandler implements ResponseErrorHandler {
                 throw new CustomerAlreadyExistsException();
             } else if (Constants.CUSTOMER_CREATION_FAILED.equals(error.getCode())) {
                 throw new CustomerCreationFailedException();
+            } else if (Constants.CUSTOMER_CAN_NOT_BE_FOUND.equals(error.getCode())) {
+                throw new CustomerCanNotBeFoundException();
+            } else if (Constants.CUSTOMER_UPDATE_FAILED.equals(error.getCode())) {
+                throw new CustomerUpdateFailedException();
+            } else if (Constants.CUSTOMER_DELETE_FAILED.equals(error.getCode())) {
+                throw new CustomerDeleteFailedException();
+            } else {
+                throw new CustomerServiceException("Unknown error occurred while invoking the CRM endpoint.");
             }
         } else {
-            throw new CustomerServiceException("Unknown error occurred while invoking the CRM endpoint.");
+            throw new CustomerServiceException("Message read error occurred while invoking the CRM endpoint.");
         }
     }
 
     /**
-     * Read the XML message from the wire, this process is bit slow due to the JAXB unmarshaller.
-     * @param inputStream       Input steam of the message body.
+     * Read the XML errorMessage from the wire, this process is bit slow due to the JAXB unmarshaller.
+     * @param inputStream       Input steam of the errorMessage body.
      * @return                  Build result object.
-     * @throws JAXBException    In case of error while reading the message.
+     * @throws JAXBException    In case of error while reading the errorMessage.
      */
     private Error readXMLMessage(InputStream inputStream) {
 
@@ -66,8 +72,8 @@ public class CRMServiceResponseErrorHandler implements ResponseErrorHandler {
             context = JAXBContext.newInstance(Error.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (Error) unmarshaller.unmarshal(inputStream);
-        } catch (JAXBException e) {
-            log.error("Error while reading the message", e);
+        } catch (JAXBException | IllegalArgumentException e) {
+            log.error("Error while reading the errorMessage", e);
         }
         return null;
     }
