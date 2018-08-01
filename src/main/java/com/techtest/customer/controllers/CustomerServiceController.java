@@ -164,6 +164,19 @@ public class CustomerServiceController {
     }
 
     /**
+     * Convert CustomerReadFailedException to HTTPStatus 500 Internal Server Error.
+     * @param ex    CustomerReadFailedException
+     * @return      ResponseEntity with detailed error errorMessage.
+     */
+    @ExceptionHandler(CustomerReadFailedException.class)
+    public ResponseEntity<ErrorResponse> handleCustomerReadFailedException(CustomerReadFailedException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("CustomerReadFailedException",
+                "Customer profile read failed due to system error");
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+    /**
      * Convert CustomerServiceException to HTTPStatus 500 Internal Server Error.
      * @param ex    CustomerServiceException
      * @return      ResponseEntity with error errorMessage.
