@@ -26,7 +26,7 @@ paths:
         consumes:
         - "application/json"
         produces:
-        - ""
+        - "application/json"
         parameters:
         - in: "body"
           name: "body"
@@ -35,10 +35,16 @@ paths:
           schema:
             $ref: "#/definitions/Customer"
         responses:
-          401:
-            description: "Unauthorized Access"
-          403:
-            description: "Access forbidden"
+          201:
+            description: "Customer record created successfully"
+          409:
+            description: "Customer record already exists"
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+          500:
+            description: "Customer record creation failed."
+            schema:
+              $ref: "#/definitions/ErrorResponse"
         security:
         - api_key: []
 
@@ -49,7 +55,7 @@ paths:
         description: "This endpoint updates the customer profile by the given profile information"
         operationId: "updateCustomer"
         consumes:
-          - ""
+          - "application/json"
         produces:
           - "application/json"
         parameters:
@@ -60,10 +66,16 @@ paths:
           schema:
             $ref: "#/definitions/Customer"
         responses:
-            401:
-              description: "Unauthorized Access"
-            403:
-              description: "Access forbidden"
+            204:
+              description: "Customer record updated successfully"
+            404:
+              description: "Customer record can not be found"
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+            500:
+              description: "Customer record update failed"
+              schema:
+                $ref: "#/definitions/ErrorResponse"
         security:
           - api_key: []
 
@@ -89,10 +101,14 @@ paths:
             description: "Fetched customer profile object"
             schema:
               $ref: "#/definitions/Customer"
-          401:
-            description: "Unauthorized Access"
-          403:
-            description: "Access forbidden"
+          404:
+            description: "Customer record can not be found"
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+          500:
+            description: "Customer record read failed."
+            schema:
+              $ref: "#/definitions/ErrorResponse"
         security:
         - api_key: []
 
@@ -111,14 +127,16 @@ paths:
           required: true
           type: "string"
         responses:
-          200:
-            description: "Fetched customer profile object"
+          204:
+            description: "Customer record deleted successfully"
+          404:
+            description: "Customer record can not be found"
             schema:
-              $ref: "#/definitions/Customer"
-          401:
-            description: "Unauthorized Access"
-          403:
-            description: "Access forbidden"
+              $ref: "#/definitions/ErrorResponse"
+          500:
+            description: "Customer record delete failed."
+            schema:
+              $ref: "#/definitions/ErrorResponse"
         security:
           - api_key: []
 
@@ -144,6 +162,13 @@ definitions:
       addressType:
         type: "string"
       address:
+        type: "string"
+  ErrorResponse:
+    type: "object"
+    properties:
+      errorMessage:
+        type: "string"
+      details:
         type: "string"
 
 securityDefinitions:
