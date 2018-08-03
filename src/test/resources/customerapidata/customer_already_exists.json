@@ -1,0 +1,4 @@
+{
+  "errorMessage": "CustomerRecordExists",
+  "details": "Customer profile exists with the same details."
+}

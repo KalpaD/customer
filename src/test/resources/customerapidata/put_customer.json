@@ -1,0 +1,12 @@
+{
+  "customerId": "1234",
+  "firstName": "Jhon",
+  "lastName": "Doe",
+  "dateOfBirth": "1990-01-01",
+  "addressList": [
+    {
+      "addressType": "HOME",
+      "address": "120 Jhone Street, Sydney"
+    }
+  ]
+}

@@ -12,4 +12,9 @@ public interface TestConstants {
     String CRM004 = "crmtestdata/crm004.xml";
     String CRM005 = "crmtestdata/crm005.xml";
     String CRM006 = "crmtestdata/crm006.xml";
+
+    String POST_CUSTOMER = "customerapidata/post_customer.json";
+    String READ_CUSTOMER_SUCCESS = "customerapidata/read_customer_success.json";
+    String PUT_CUSTOMER = "customerapidata/put_customer.json";
+
 }

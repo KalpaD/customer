@@ -1,0 +1,4 @@
+{
+  "errorMessage": "CustomerDeleteFailedException",
+  "details": "Customer profile delete failed due to system error"
+}
