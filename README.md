@@ -23,11 +23,9 @@ In order to get the customer service working you have set up following:
 ###### A set of mock services to simulate CRM back end.
 
 1. Copy the CRM-Legecy-Backend-soapui-project.xml file to convenient location and open it using SOAPUI
-    ![Project]
-    (/images/project.png)
+    ![alt text](images/project.png)
 2. Open the mock service window by double clicking on CRMCustomerProfileMock
-    ![Mock Window]
-    (/images/mock_run.png)
+    ![alt text](/images/mock_run.png)
 3. And run it.
 
 4. The default mock port is 8089, Please change that if you have any port conflict.
@@ -53,8 +51,7 @@ java -jar target/*.jar
 ### Testing customer endpoints.
 
 1. Import `customer-tech-test.postman_collection` to postman.
-    ![PostMan Import]
-    (/images/postman_import.png)
+    ![alt text](images/postman_import.png)
 2. You can use thi collection to invoke the customer resources.
 
 
