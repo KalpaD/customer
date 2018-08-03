@@ -18,7 +18,7 @@ cd customer
 ```
 
 ### High level architecture document.
-This is located at root level in work fromat `High_level_architecture.docx`
+This is located at root level in word format `High_level_architecture.docx`
 
 It includes the security architecture which will be used to support web and mobile clients.
 
@@ -56,9 +56,9 @@ java -jar target/*.jar
 
 ### Testing customer endpoints.
 
-1. Import `customer-tech-test.postman_collection` to postman.
+1. Import `customer-tech-test.postman_collection` to postman which is located at root level.
     ![alt text](images/postman_import.png)
-2. You can use thi collection to invoke the customer resources.
+2. You can use this collection to invoke the customer resources.
 
 
 ### Unit and integration test report.
