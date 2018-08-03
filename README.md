@@ -17,6 +17,12 @@ git clone https://github.com/KalpaD/customer.git
 cd customer
 ```
 
+### High level architecture document.
+This is located at root level in work fromat `High_level_architecture.docx`
+
+It includes the security architecture which will be used to support web and mobile clients.
+
+
 ### Configuration
 In order to get the customer service working you have set up following:
 
@@ -61,3 +67,5 @@ Once you build the project successfully, you can find the Jacoco test report at
 ```
 /target/site/jacoco/index.html`
 ```
+
+
