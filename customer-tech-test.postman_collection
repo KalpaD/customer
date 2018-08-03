@@ -1,0 +1,118 @@
+{
+	"id": "b8325bc8-18b7-2cf0-8afe-17bda6aeede7",
+	"name": "customer-tech-test",
+	"description": "",
+	"order": [
+		"e1f4e7f8-1e9a-fd0b-1373-c2979a5ef551",
+		"7245e81c-2636-5c11-eff3-7d3a307f6aee",
+		"93f9d574-8da5-f8fa-8928-dd578e0a5ed9",
+		"fd923fda-39e9-8826-b561-060f015103fa"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1532916908817,
+	"owner": "161075",
+	"public": false,
+	"requests": [
+		{
+			"id": "7245e81c-2636-5c11-eff3-7d3a307f6aee",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://localhost:8443/customers",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1533258853340,
+			"name": "POST- customer",
+			"description": "",
+			"collectionId": "b8325bc8-18b7-2cf0-8afe-17bda6aeede7",
+			"responses": [],
+			"rawModeData": "{\n    \"customerId\": \"1234\",\n    \"firstName\": \"Jhon\",\n    \"lastName\": \"Doe\",\n    \"dateOfBirth\": \"1990-01-01\",\n    \"addressList\": [\n        {\n            \"addressType\": \"HOME\",\n            \"address\": \"120 Jhone Street, Sydney\"\n        }\n    ]\n}"
+		},
+		{
+			"id": "93f9d574-8da5-f8fa-8928-dd578e0a5ed9",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://localhost:8443/customers",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1533258875926,
+			"name": "PUT /customers",
+			"description": "",
+			"collectionId": "b8325bc8-18b7-2cf0-8afe-17bda6aeede7",
+			"responses": [],
+			"rawModeData": "{\n    \"customerId\": \"1234\",\n    \"firstName\": \"Jhon\",\n    \"lastName\": \"Doe\",\n    \"dateOfBirth\": \"1990-01-01\",\n    \"addressList\": [\n        {\n            \"addressType\": \"HOME\",\n            \"address\": \"120 Jhone Street, Sydney\"\n        }\n    ]\n}"
+		},
+		{
+			"id": "e1f4e7f8-1e9a-fd0b-1373-c2979a5ef551",
+			"headers": "",
+			"headerData": [],
+			"url": "https://localhost:8443/customers/1234",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1533258834975,
+			"name": "GET- customer",
+			"description": "",
+			"collectionId": "b8325bc8-18b7-2cf0-8afe-17bda6aeede7",
+			"responses": []
+		},
+		{
+			"id": "fd923fda-39e9-8826-b561-060f015103fa",
+			"headers": "",
+			"headerData": [],
+			"url": "https://localhost:8443/customers/1234",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1533258871264,
+			"name": "DELETE customers/{id}",
+			"description": "",
+			"collectionId": "b8325bc8-18b7-2cf0-8afe-17bda6aeede7",
+			"responses": []
+		}
+	]
+}

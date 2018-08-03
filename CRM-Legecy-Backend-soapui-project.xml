@@ -52,7 +52,7 @@ if( requestBody.contains("some data") )
 }
 */
 </con:dispatchPath><con:response name="Success" id="dfff89d0-66a7-4173-b5e3-9dc9b8f0bd8a" httpResponseStatus="200"><con:settings/><con:responseContent> &lt;Response>
-      &lt;Status>Successful&lt;/Status>
+      &lt;status>Successful&lt;/status>
  &lt;/Response></con:responseContent></con:response><con:response name="CustomerExists" id="466c8eeb-1274-4b53-bf20-5634a3afb45b" httpResponseStatus="500"><con:settings/><con:responseContent> &lt;Error>
       &lt;Code>CRM001&lt;/Code>
  &lt;/Error></con:responseContent></con:response><con:response name="CustomerCreationFailed" id="bc17b7a4-7b0a-4650-a906-03c4736ecb4d" httpResponseStatus="500"><con:settings/><con:responseContent> &lt;Error>
@@ -110,7 +110,7 @@ if( requestBody.contains("some data") )
 }
 */
 </con:dispatchPath><con:response name="Success" id="e692dc92-e310-470e-a5b6-4a95f861d910" httpResponseStatus="200"><con:settings/><con:responseContent> &lt;Response>
-      &lt;Status>Successful&lt;/Status>
+      &lt;status>Successful&lt;/status>
  &lt;/Response></con:responseContent></con:response><con:response name="CustomerCanNotBeFound" id="d647c9d3-719a-4919-afd7-4fa2943a2aa7" httpResponseStatus="500"><con:settings/><con:responseContent> &lt;Error>
       &lt;Code>CRM003&lt;/Code>
  &lt;/Error></con:responseContent></con:response><con:response name="CustomerDeleteFailed" id="30828fa6-7e98-49fc-a29e-bb98013cb6b2" httpResponseStatus="500"><con:settings/><con:responseContent> &lt;Error>
@@ -168,7 +168,7 @@ if( requestBody.contains("some data") )
 }
 */
 </con:dispatchPath><con:response name="Success" id="4704f48e-2de0-4cb8-b6a6-bdcee49a9982" httpResponseStatus="200"><con:settings/><con:responseContent> &lt;Response>
-      &lt;Status>Successful&lt;/Status>
+      &lt;status>Successful&lt;/status>
  &lt;/Response></con:responseContent></con:response><con:response name="CustomerCanNotBeFound" id="bc7f9093-aae0-4459-bbfb-c1fe423ce40e" httpResponseStatus="500"><con:settings/><con:responseContent> &lt;Error>
       &lt;Code>CRM003&lt;/Code>
  &lt;/Error></con:responseContent></con:response><con:response name="CustomerUpdateFailed" id="44ec41b9-a45c-47de-b2a2-974efeea5eab" httpResponseStatus="500"><con:settings/><con:responseContent> &lt;Error>
