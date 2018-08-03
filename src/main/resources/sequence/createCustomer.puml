@@ -1,0 +1,26 @@
+@startuml
+
+MobileOrWebClient               ->  APIG: POST http://secure.techtest.com/api/v1/customers
+
+APIG                         ->  Customer_Service: APIG calls POST /v1/customers
+
+Customer_Service             ->  CRM_POX_API: POST crm.techtest.com/crm/createCustomer
+
+alt successful customer profile creation.
+
+    Customer_Service         <-     CRM_POX_API : HTTP/1.1 200 OK with body
+
+    APIG                     <-     Customer_Service: HTTP/1.1 200 OK with body
+
+    MobileOrWebClient           <-     APIG: HTTP/1.1 200 OK with body
+
+else customer creation failure due customer already exists in the CRM system.
+
+    Customer_Service         <-     CRM_POX_API : HTTP/1.1 500 Internal Server Error body
+
+    APIG                     <-     Customer_Service: HTTP/1.1 409 Conflict error body
+
+    MobileOrWebClient           <-     APIG: HTTP/1.1 409 Conflict error body
+
+end
+@enduml

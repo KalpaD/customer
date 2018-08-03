@@ -1,3 +1,4 @@
+
 <CustomerProfile>
     <CustomerIdentificationNumber></CustomerIdentificationNumber>
     <FirstName></FirstName>
@@ -14,3 +15,6 @@
         </Address>
     </Addresses>
 </CustomerProfile>
+
+
+<Id>001</Id>
