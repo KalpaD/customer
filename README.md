@@ -17,16 +17,18 @@ git clone https://github.com/KalpaD/customer.git
 cd customer
 ```
 
-### High level architecture document.
+### High level architecture document
 This is located at root level in word format `High_level_architecture.docx`
 
 It includes the security architecture which will be used to support web and mobile clients.
 
+### Swagger definition
+This is also located at root level as yml file `customer_profile`.
 
 ### Configuration
 In order to get the customer service working you have set up following:
 
-###### A set of mock services to simulate CRM back end.
+#### A set of mock services to simulate CRM back end.
 
 1. Copy the CRM-Legecy-Backend-soapui-project.xml file to convenient location and open it using SOAPUI
     ![alt text](images/project.png)
