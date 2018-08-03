@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-public class CustomerServiceController {
+public class CustomerServiceController extends BaseController {
 
     /**
      *  Reference to the customerService which holds the business logic.
@@ -40,8 +40,9 @@ public class CustomerServiceController {
     @PostMapping("/customers")
     public ResponseEntity createCustomer(@RequestBody Customer customer)
             throws CustomerAlreadyExistsException, CustomerCreationFailedException {
-
+        log.info(" > POST /customers");
         customerService.createCustomer(customer);
+        log.info(" < POST /customers");
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

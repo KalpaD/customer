@@ -1,0 +1,4 @@
+{
+  "errorMessage": "CustomerCanNotBeFound",
+  "details": "Customer profile could not be found for the given profile id."
+}
