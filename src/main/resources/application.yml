@@ -1,3 +1,14 @@
+server:
+  port:                   8443
+  ssl:
+    key-store-type:       JKS
+    key-store-password:   password # this should not be in plain text.
+    key-store:            classpath:keystore.jks
+    key-alias:            customer
+
+security:
+  require-ssl: true
+
 management:
   endpoints:
     web:

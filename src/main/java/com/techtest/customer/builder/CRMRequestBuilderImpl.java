@@ -5,11 +5,13 @@ import com.techtest.customer.gen.ObjectFactory;
 import com.techtest.customer.gen.Request;
 import com.techtest.customer.model.Address;
 import com.techtest.customer.model.Customer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
  * Provides the implementation of the customer profile POX requests builds.
  */
+@Slf4j
 @Component
 public class CRMRequestBuilderImpl implements CRMRequestBuilder {
 
@@ -55,7 +57,7 @@ public class CRMRequestBuilderImpl implements CRMRequestBuilder {
             customerProfileAddresses.getAddress().add(address);
         }
         customerProfile.setAddresses(customerProfileAddresses);
-
+        log.info(customerProfile.toString());
         return customerProfile;
     }
 
@@ -69,6 +71,7 @@ public class CRMRequestBuilderImpl implements CRMRequestBuilder {
         ObjectFactory objectFactory = new ObjectFactory();
         Request request = objectFactory.createRequest();
         request.setId(id);
+        log.info(request.toString());
         return request;
     }
 
