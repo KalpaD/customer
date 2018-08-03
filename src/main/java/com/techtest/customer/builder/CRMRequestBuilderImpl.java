@@ -57,7 +57,6 @@ public class CRMRequestBuilderImpl implements CRMRequestBuilder {
             customerProfileAddresses.getAddress().add(address);
         }
         customerProfile.setAddresses(customerProfileAddresses);
-        log.info(customerProfile.toString());
         return customerProfile;
     }
 
@@ -71,7 +70,6 @@ public class CRMRequestBuilderImpl implements CRMRequestBuilder {
         ObjectFactory objectFactory = new ObjectFactory();
         Request request = objectFactory.createRequest();
         request.setId(id);
-        log.info(request.toString());
         return request;
     }
 
