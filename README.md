@@ -40,7 +40,7 @@ In order to get the customer service working you have set up following:
 
 The configuration is located in `src/resources/application.yml`.
 It contains the endpoint configurations which use by the API to communicate to these mock.
-If you change the port please make sure to the port in `application.yml`
+If you change the port please make sure to change the port in `application.yml` as well.
 
 ### Build an executable JAR
 You can run the application from the command line using:
