@@ -1,0 +1,59 @@
+@startuml
+
+skinparam backgroundcolor white
+skinparam participantBackgroundColor PaleGreen
+skinparam participantBorderColor SpringGreen
+skinparam ArrowColor DeepSkyBlue
+
+
+skinparam sequenceParticipant {
+    borderColor<<Client>> white
+    backgroundColor<<Client>> RoyalBlue
+    lifeLineBorderColor<<Client>> blue
+    lifeLineBackgroundColor<<Client>> #A9DCDF
+}
+
+skinparam sequenceParticipant {
+    borderColor<<Identity>> white
+    backgroundColor<<Identity>> DarkOrange
+}
+
+skinparam sequenceParticipant {
+    borderColor<<BFF>> white
+    backgroundColor<<BFF>> 	#DEB887
+}
+
+skinparam sequenceParticipant {
+    borderColor<<OpenBanking>> white
+    backgroundColor<<OpenBanking>> #F08080
+}
+
+participant MobileClient as "<color:#white>Mobile" << (C, #FFFAFA) Client >>
+participant APIGateWay as "<color:#white>APIGateWay" << (I, #FFFAFA) Identity >>
+participant "Accounts Service" as accountApi << (M, #55ff55) MicroService >>
+participant Provider as "<color:#white>Provider"  << (B, #FFFAFA) ServiceProvider >>
+
+note left of MobileClient #00FA9A
+	The user is new
+	to eco system
+end note
+MobileClient -> APIGateWay : POST /AUTH0_DOMAIN/oauth/token \n <<create user : APIGateWay>>
+activate APIGateWay #PaleTurquoise
+note left of APIGateWay #Aquamarine
+    {
+      "access_token":"eyJz93a...k4laUWw",
+      "refresh_token":"GEbRxBN...edjnXbL",
+      "id_token":"eyJ0XAi...4faeEoQ",
+      "token_type":"Bearer",
+      "expires_in":86400
+    }
+end note
+MobileClient <- APIGateWay : 200 OK, Credential object
+
+alt #LightSalmon Descoped and mocked in MVP
+
+MobileClient -> accountApi : POST /access \n <<init consent process>>
+accountApi -> Provider : POST  /account-access-consents \n <<init consent process>>
+end
+
+@enduml
