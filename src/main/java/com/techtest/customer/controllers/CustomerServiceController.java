@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerServiceController extends BaseController {
 
     /**
-     *  Reference to the customerService which holds the business logic.
+     * Reference to the customerService which holds the business logic.
      */
     private CustomerService customerService;
 
@@ -175,7 +175,6 @@ public class CustomerServiceController extends BaseController {
                 "Customer profile read failed due to system error");
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
     /**
      * Convert CustomerServiceException to HTTPStatus 500 Internal Server Error.
